@@ -37,24 +37,31 @@
   </div>
 
   <script>
-    let db = [];                       // will hold the full JSON
-    let ready = false;                 // simple flag
+    // Load data (optional if you are fetching live)
+    let db = [];
+    let ready = false;
 
-    // load data once
     fetch('data.json')
       .then(r => r.json())
       .then(d => { db = d; ready = true; })
       .catch(() => showError({message:'Could not load data.json'}));
 
-    function search()   const ssNo = document.getElementById('ssNo').value.trim();
-  if (!ssNo) { alert('Enter a Short Service No'); return; }
+    // ✅ Fixed search function
+    function search() {
+      const ssNo = document.getElementById('ssNo').value.trim();
+      if (!ssNo) {
+        alert('Enter a Short Service No');
+        return;
+      }
 
-  fetch('https://script.google.com/macros/s/AKfycbxKXMhkCpckBgPbdycClECXVeUsjv65MjTNEiyda978HhF4hSqdmH3CAxEC9i3lzF1C/exec' + encodeURIComponent(Short Service No))
-    .then(r => r.json())
-    .then(showStackedTable)
-    .catch(showError);
-}
-    // convert single row into the same shape the old callback expected
+      const apiURL = 'https://script.google.com/macros/s/AKfycbxKXMhkCpckBgPbdycClECXVeUsjv65MjTNEiyda978HhF4hSqdmH3CAxEC9i3lzF1C/exec?ssNo=' + encodeURIComponent(ssNo);
+
+      fetch(apiURL)
+        .then(r => r.json())
+        .then(showStackedTable)
+        .catch(showError);
+    }
+
     function objFromRow(row) {
       const headers = Object.keys(row);
       const values  = Object.values(row);
