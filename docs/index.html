@@ -46,15 +46,14 @@
       .then(d => { db = d; ready = true; })
       .catch(() => showError({message:'Could not load data.json'}));
 
-    function search() {
-      if (!ready) { alert('Data still loading…'); return; }
-      const ssNo = document.getElementById('ssNo').value.trim();
-      if (!ssNo) { alert('Enter a Short Service No'); return; }
+    function search()   const ssNo = document.getElementById('ssNo').value.trim();
+  if (!ssNo) { alert('Enter a Short Service No'); return; }
 
-      const rowObj = db.find(r => String(r['Short Service No']) === ssNo);
-      showStackedTable(rowObj ? objFromRow(rowObj) : null);
-    }
-
+  fetch('https://script.google.com/macros/s/AKfycbxKXMhkCpckBgPbdycClECXVeUsjv65MjTNEiyda978HhF4hSqdmH3CAxEC9i3lzF1C/exec' + encodeURIComponent(ssNo))
+    .then(r => r.json())
+    .then(showStackedTable)
+    .catch(showError);
+}
     // convert single row into the same shape the old callback expected
     function objFromRow(row) {
       const headers = Object.keys(row);
