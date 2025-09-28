@@ -49,7 +49,7 @@
     function search()   const ssNo = document.getElementById('ssNo').value.trim();
   if (!ssNo) { alert('Enter a Short Service No'); return; }
 
-  fetch('https://script.google.com/macros/s/AKfycbxKXMhkCpckBgPbdycClECXVeUsjv65MjTNEiyda978HhF4hSqdmH3CAxEC9i3lzF1C/exec' + encodeURIComponent(ssNo))
+  fetch('https://script.google.com/macros/s/AKfycbxKXMhkCpckBgPbdycClECXVeUsjv65MjTNEiyda978HhF4hSqdmH3CAxEC9i3lzF1C/exec' + encodeURIComponent(Short Service No))
     .then(r => r.json())
     .then(showStackedTable)
     .catch(showError);
